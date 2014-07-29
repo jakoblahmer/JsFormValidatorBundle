@@ -272,14 +272,14 @@ function FpJsCustomizeMethods() {
                 FpJsFormValidator.ajax.callbacks.push(function () {
                     element.onValidate.apply(element.domNode, [FpJsFormValidator.getAllErrors(element, {}), event]);
                     if (element.isValid()) {
-                        var event = new CustomEvent("jsFormValidator.validated");
+                        var event = new CustomEvent("validated");
                         item.dispatchEvent(event);
                     }
                 });
             } else {
                 element.onValidate.apply(element.domNode, [FpJsFormValidator.getAllErrors(element, {}), event]);
                 if (element.isValid()) {
-                    var event = new CustomEvent("jsFormValidator.validated");
+                    var event = new CustomEvent("validated");
                     item.dispatchEvent(event);
                 }
             }
