@@ -265,6 +265,8 @@ function FpJsCustomizeMethods() {
             if (event) {
                 event.preventDefault();
             }
+            var validatedEvent = new CustomEvent('validated', { detail: {'valid': false}});
+
             if (FpJsFormValidator.ajax.queue) {
                 if (event) {
                     event.preventDefault();
@@ -272,17 +274,16 @@ function FpJsCustomizeMethods() {
                 FpJsFormValidator.ajax.callbacks.push(function () {
                     element.onValidate.apply(element.domNode, [FpJsFormValidator.getAllErrors(element, {}), event]);
                     if (element.isValid()) {
-                        var event = new CustomEvent("validated");
-                        item.dispatchEvent(event);
+                        validatedEvent = new CustomEvent('validated', { detail: {'valid': true}});
                     }
                 });
             } else {
                 element.onValidate.apply(element.domNode, [FpJsFormValidator.getAllErrors(element, {}), event]);
                 if (element.isValid()) {
-                    var event = new CustomEvent("validated");
-                    item.dispatchEvent(event);
+                    validatedEvent = new CustomEvent('validated', { detail: {'valid': true}});
                 }
             }
+            item.dispatchEvent(validatedEvent);
         });
     };
 
